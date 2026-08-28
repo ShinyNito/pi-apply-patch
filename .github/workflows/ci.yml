@@ -103,7 +103,7 @@ jobs:
       - run: pnpm --filter @shinynito/apply-patch-node build:ts
       - name: Test native binding
         if: ${{ !contains(matrix.settings.target, 'musl') }}
-        run: node --import ./packages/apply-patch-node/test/use-local-native.mjs --test packages/apply-patch-node/test/*.test.mjs
+        run: node --test packages/apply-patch-node/test/*.test.mjs
       - name: Test musl native binding
         if: contains(matrix.settings.target, 'musl')
         shell: bash
@@ -112,7 +112,7 @@ jobs:
           -v "${{ github.workspace }}:/work"
           -w /work
           node:24-alpine
-          sh -lc "node --import ./packages/apply-patch-node/test/use-local-native.mjs --test packages/apply-patch-node/test/*.test.mjs"
+          sh -lc "node --test packages/apply-patch-node/test/*.test.mjs"
       - uses: actions/upload-artifact@v7
         with:
           name: bindings-${{ matrix.settings.target }}
