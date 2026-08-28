@@ -1,6 +1,6 @@
 {
   "name": "@shinynito/pi-apply-patch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "SIMD-accelerated Codex-style apply_patch tool for Pi",
   "keywords": ["pi-package"],
   "type": "module",
