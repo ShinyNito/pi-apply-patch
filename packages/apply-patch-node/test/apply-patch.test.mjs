@@ -1,28 +1,12 @@
 import { strict as assert } from "node:assert";
-import { execFile } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { promisify } from "node:util";
 
 import { applyPatch, parsePatch, PatchError } from "../dist/index.js";
 
 const temporaryDirectory = () => mkdtemp(join(tmpdir(), "pi-apply-patch-"));
-const execFileAsync = promisify(execFile);
-
-test("fails when the exact platform package is missing", async () => {
-  const loaderUrl = new URL("../native/index.js", import.meta.url).href;
-  await assert.rejects(
-    execFileAsync(process.execPath, [
-      "--input-type=module",
-      "--eval",
-      `delete process.env.NAPI_RS_NATIVE_LIBRARY_PATH; await import(${JSON.stringify(loaderUrl)})`,
-    ]),
-    (error) => error.stderr.includes("@shinynito/apply-patch-node-"),
-  );
-});
-
 test("applies add, update, move, and delete operations", async () => {
   const cwd = await temporaryDirectory();
   try {

@@ -139,14 +139,14 @@ jobs:
         with:
           pattern: bindings-*
           path: packages/apply-patch-node/artifacts
-      - name: Collect native packages
+      - name: Collect native bindings
         working-directory: packages/apply-patch-node
         run: |
-          pnpm exec napi create-npm-dirs
-          pnpm exec napi artifacts --output-dir artifacts --npm-dir npm
-          test "$(find artifacts -name 'apply-patch.*.node' -type f | wc -l | tr -d ' ')" = "8"
-          test "$(find npm -name 'apply-patch.*.node' -type f | wc -l | tr -d ' ')" = "8"
-      - name: Publish native packages and Node SDK
+          find artifacts -name 'apply-patch.*.node' -type f -exec cp {} native/ \;
+          test "$(find native -name 'apply-patch.*.node' -type f | wc -l | tr -d ' ')" = "8"
+      - name: Build Node SDK
+        run: pnpm --filter @shinynito/apply-patch-node build:ts
+      - name: Publish Node SDK
         working-directory: packages/apply-patch-node
         run: npm publish --access public
         env:

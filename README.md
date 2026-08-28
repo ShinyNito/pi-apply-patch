@@ -17,7 +17,7 @@ pi install npm:@shinynito/pi-apply-patch
 - `packages/apply-patch-node`: public Node SDK and platform binary loader
 - `packages/pi-apply-patch`: Pi extension published as `@shinynito/pi-apply-patch`
 
-The Node package publishes separate optional packages for macOS, Linux glibc, Linux musl, and Windows on ARM64 and x64. If the exact native package for the current platform is absent, loading fails.
+The Node package bundles native binaries for macOS, Linux glibc, Linux musl, and Windows on ARM64 and x64. Loading fails on unsupported platforms.
 
 ## Patch format
 

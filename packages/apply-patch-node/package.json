@@ -1,6 +1,6 @@
 {
   "name": "@shinynito/apply-patch-node",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Rust-powered Codex-style apply_patch engine for Node.js",
   "type": "module",
   "main": "./dist/index.js",
@@ -14,8 +14,7 @@
   },
   "files": [
     "dist",
-    "native/index.js",
-    "native/index.d.ts",
+    "native",
     "README.md",
     "LICENSE"
   ],
@@ -54,10 +53,8 @@
     "build:native": "napi build --cwd . --manifest-path ../../Cargo.toml --package apply-patch-node --package-json-path package.json --output-dir native --platform --no-js --release -- --locked",
     "build:ts": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "pnpm build && node --import ./test/use-local-native.mjs --test test/*.test.mjs",
-    "bench": "pnpm build && node --import ./test/use-local-native.mjs benchmark/apply-patch.bench.mjs",
-    "artifacts": "napi artifacts --output-dir artifacts --npm-dir npm",
-    "prepublishOnly": "napi prepublish -t npm --no-gh-release"
+    "test": "pnpm build && node --test test/*.test.mjs",
+    "bench": "pnpm build && node benchmark/apply-patch.bench.mjs"
   },
   "devDependencies": {
     "@napi-rs/cli": "^3.8.6",

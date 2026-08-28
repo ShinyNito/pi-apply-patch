@@ -26,9 +26,7 @@ if (!supportedTargets.has(target)) {
   throw new Error(`Unsupported platform for @shinynito/apply-patch-node: ${target}`);
 }
 
-const binding = require(
-  process.env.NAPI_RS_NATIVE_LIBRARY_PATH ?? `@shinynito/apply-patch-node-${target}`,
-);
+const binding = require(`./apply-patch.${target}.node`);
 
 export const {
   applyPreparedOperationNative,
