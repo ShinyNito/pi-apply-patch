@@ -152,13 +152,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
-      - name: Pack Pi extension
-        working-directory: packages/pi-apply-patch
-        run: |
-          mkdir -p ../../release
-          pnpm pack --pack-destination ../../release
       - name: Publish Pi extension
-        run: npm publish release/*.tgz --access public
+        working-directory: packages/pi-apply-patch
+        run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
