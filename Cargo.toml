@@ -1,0 +1,28 @@
+[workspace]
+members = [
+  "crates/apply-patch-core",
+  "crates/apply-patch-node",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/ShinyNito/pi-apply-patch"
+
+[workspace.dependencies]
+apply-patch-core = { path = "crates/apply-patch-core" }
+memchr = "2.8.3"
+napi = { version = "3.0.0", default-features = false, features = ["napi8"] }
+napi-derive = "3.0.0"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = "symbols"
+
+[profile.ci]
+inherits = "release"
+lto = "thin"

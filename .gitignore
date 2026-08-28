@@ -1,0 +1,8 @@
+/node_modules/
+/target/
+/packages/*/node_modules/
+/packages/apply-patch-node/dist/
+/packages/apply-patch-node/native/*.node
+/packages/apply-patch-node/npm/
+*.log
+.DS_Store

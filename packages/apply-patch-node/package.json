@@ -1,0 +1,67 @@
+{
+  "name": "@shinynito/apply-patch-node",
+  "version": "0.1.0",
+  "description": "Rust-powered Codex-style apply_patch engine for Node.js",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "native/index.js",
+    "native/index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShinyNito/pi-apply-patch.git",
+    "directory": "packages/apply-patch-node"
+  },
+  "homepage": "https://github.com/ShinyNito/pi-apply-patch/tree/main/packages/apply-patch-node",
+  "bugs": {
+    "url": "https://github.com/ShinyNito/pi-apply-patch/issues"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "napi": {
+    "binaryName": "apply-patch",
+    "targets": [
+      "aarch64-apple-darwin",
+      "x86_64-apple-darwin",
+      "aarch64-unknown-linux-gnu",
+      "x86_64-unknown-linux-gnu",
+      "aarch64-unknown-linux-musl",
+      "x86_64-unknown-linux-musl",
+      "aarch64-pc-windows-msvc",
+      "x86_64-pc-windows-msvc"
+    ]
+  },
+  "scripts": {
+    "build": "pnpm run build:native && pnpm run build:ts",
+    "build:native": "napi build --cwd . --manifest-path ../../Cargo.toml --package apply-patch-node --package-json-path package.json --output-dir native --platform --no-js --release -- --locked",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "pnpm build && node --import ./test/use-local-native.mjs --test test/*.test.mjs",
+    "bench": "pnpm build && node --import ./test/use-local-native.mjs benchmark/apply-patch.bench.mjs",
+    "artifacts": "napi artifacts --output-dir artifacts --npm-dir npm",
+    "prepublishOnly": "napi prepublish -t npm --no-gh-release"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.8.6",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

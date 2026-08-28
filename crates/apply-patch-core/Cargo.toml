@@ -1,0 +1,13 @@
+[package]
+name = "apply-patch-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Codex-style apply_patch parser and application engine"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+memchr.workspace = true

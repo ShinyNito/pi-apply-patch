@@ -1,0 +1,14 @@
+{
+  "name": "pi-apply-patch-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.22.0",
+  "scripts": {
+    "build": "pnpm --filter @shinynito/apply-patch-node build && pnpm --filter @shinynito/pi-apply-patch typecheck",
+    "build:native": "pnpm --filter @shinynito/apply-patch-node build:native",
+    "typecheck": "pnpm -r typecheck",
+    "test": "cargo test --workspace && pnpm --filter @shinynito/apply-patch-node test && pnpm --filter @shinynito/pi-apply-patch test",
+    "bench": "pnpm --filter @shinynito/apply-patch-node bench",
+    "check": "cargo fmt -- --check && cargo clippy --workspace --all-targets -- -D warnings && pnpm typecheck && pnpm test"
+  }
+}
